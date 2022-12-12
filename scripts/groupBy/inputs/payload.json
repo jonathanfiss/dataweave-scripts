@@ -22,59 +22,5 @@
         "descriptionExtract": "Payment",
         "value": 2559.38,
         "typeMovement": "D"
-    },
-    {
-        "dateMovement": "2021-06-07T00:00:00-03:00",
-        "descriptionExtract": "Payment",
-        "value": 24588.46,
-        "typeMovement": "B"
-    },
-    {
-        "dateMovement": "2021-06-09T00:00:00-03:00",
-        "descriptionExtract": "Payment",
-        "value": 2559.38,
-        "typeMovement": "D"
-    },
-    {
-        "dateMovement": "2021-06-10T00:00:00-03:00",
-        "descriptionExtract": "Payment",
-        "value": 2559.38,
-        "typeMovement": "D"
-    },
-    {
-        "dateMovement": "2021-06-07T00:00:00-03:00",
-        "descriptionExtract": "Payment",
-        "value": 24588.46,
-        "typeMovement": "D"
-    },
-    {
-        "dateMovement": "2021-06-09T00:00:00-03:00",
-        "descriptionExtract": "Payment",
-        "value": 2559.38,
-        "typeMovement": "D"
-    },
-    {
-        "dateMovement": "2021-06-10T00:00:00-03:00",
-        "descriptionExtract": "Payment",
-        "value": 2559.38,
-        "typeMovement": "D"
-    },
-    {
-        "dateMovement": "2021-06-07T00:00:00-03:00",
-        "descriptionExtract": "Payment",
-        "value": 24588.46,
-        "typeMovement": "D"
-    },
-    {
-        "dateMovement": "2021-06-09T00:00:00-03:00",
-        "descriptionExtract": "Payment",
-        "value": 2559.38,
-        "typeMovement": "D"
-    },
-    {
-        "dateMovement": "2021-06-10T00:00:00-03:00",
-        "descriptionExtract": "Payment",
-        "value": 2559.38,
-        "typeMovement": "D"
     }
 ]

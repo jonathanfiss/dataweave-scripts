@@ -1,0 +1,170 @@
+[
+    {
+      "idPersonCRS": 598,
+      "modality": "0216",
+      "LinkEM": "N",
+      "cdSalaries": "110",
+      "vlSalaries": "4609.40"
+    },
+    {
+      "idPersonCRS": 598,
+      "modality": "0216",
+      "LinkEM": "N",
+      "cdSalaries": "120",
+      "vlSalaries": "4554.65"
+    },
+    {
+      "idPersonCRS": 598,
+      "modality": "0216",
+      "LinkEM": "N",
+      "cdSalaries": "130",
+      "vlSalaries": "4492.05"
+    },
+    {
+      "idPersonCRS": 598,
+      "modality": "0216",
+      "LinkEM": "N",
+      "cdSalaries": "140",
+      "vlSalaries": "13133.82"
+    },
+    {
+      "idPersonCRS": 598,
+      "modality": "0216",
+      "LinkEM": "N",
+      "cdSalaries": "150",
+      "vlSalaries": "24801.09"
+    },
+    {
+      "idPersonCRS": 598,
+      "modality": "0216",
+      "LinkEM": "N",
+      "cdSalaries": "160",
+      "vlSalaries": "44238.70"
+    },
+    {
+      "idPersonCRS": 598,
+      "modality": "0216",
+      "LinkEM": "N",
+      "cdSalaries": "165",
+      "vlSalaries": "37894.92"
+    },
+    {
+      "idPersonCRS": 598,
+      "modality": "0216",
+      "LinkEM": "N",
+      "cdSalaries": "170",
+      "vlSalaries": "5769.20"
+    },
+    {
+      "idPersonCRS": 598,
+      "modality": "0299",
+      "LinkEM": "N",
+      "cdSalaries": "110",
+      "vlSalaries": "4801.36"
+    },
+    {
+      "idPersonCRS": 598,
+      "modality": "0299",
+      "LinkEM": "N",
+      "cdSalaries": "120",
+      "vlSalaries": "2966.25"
+    },
+    {
+      "idPersonCRS": 598,
+      "modality": "0299",
+      "LinkEM": "N",
+      "cdSalaries": "130",
+      "vlSalaries": "2966.25"
+    },
+    {
+      "idPersonCRS": 598,
+      "modality": "0299",
+      "LinkEM": "N",
+      "cdSalaries": "140",
+      "vlSalaries": "7063.64"
+    },
+    {
+      "idPersonCRS": 598,
+      "modality": "0299",
+      "LinkEM": "N",
+      "cdSalaries": "150",
+      "vlSalaries": "13700.26"
+    },
+    {
+      "idPersonCRS": 598,
+      "modality": "1904",
+      "LinkEM": "N",
+      "cdSalaries": "40",
+      "vlSalaries": "2000.00"
+    },
+    {
+      "idPersonCRS": 254,
+      "modality": "0216",
+      "LinkEM": "N",
+      "cdSalaries": "110",
+      "vlSalaries": "11790.77"
+    },
+    {
+      "idPersonCRS": 254,
+      "modality": "0216",
+      "LinkEM": "N",
+      "cdSalaries": "120",
+      "vlSalaries": "11754.23"
+    },
+    {
+      "idPersonCRS": 254,
+      "modality": "0216",
+      "LinkEM": "N",
+      "cdSalaries": "130",
+      "vlSalaries": "11718.25"
+    },
+    {
+      "idPersonCRS": 254,
+      "modality": "0216",
+      "LinkEM": "N",
+      "cdSalaries": "140",
+      "vlSalaries": "34944.40"
+    },
+    {
+      "idPersonCRS": 254,
+      "modality": "0216",
+      "LinkEM": "N",
+      "cdSalaries": "150",
+      "vlSalaries": "68990.52"
+    },
+    {
+      "idPersonCRS": 254,
+      "modality": "0216",
+      "LinkEM": "N",
+      "cdSalaries": "160",
+      "vlSalaries": "51719.49"
+    },
+    {
+      "idPersonCRS": 254,
+      "modality": "0216",
+      "LinkEM": "N",
+      "cdSalaries": "165",
+      "vlSalaries": "23170.77"
+    },
+    {
+      "idPersonCRS": 254,
+      "modality": "1350",
+      "LinkEM": "N",
+      "cdSalaries": "110",
+      "vlSalaries": "837.02"
+    },
+    {
+      "idPersonCRS": 254,
+      "modality": "1902",
+      "LinkEM": "N",
+      "cdSalaries": "20",
+      "vlSalaries": "53200.00"
+    },
+    {
+      "idPersonCRS": 254,
+      "modality": "1904",
+      "LinkEM": "N",
+      "cdSalaries": "40",
+      "vlSalaries": "45000.00"
+    }
+  ]

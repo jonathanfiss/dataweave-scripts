@@ -1,0 +1,84 @@
+{
+    "releases": [
+      {
+        "dataReference": "2021-06-07T00:00:00-03:00",
+        "detailsLaunch": [
+          {
+            "description": "Payment",
+            "value": 24546.74,
+            "typeMovement": "A"
+          },
+          {
+            "description": "Payment",
+            "value": 24588.46,
+            "typeMovement": "D"
+          },
+          {
+            "description": "Payment",
+            "value": 24588.46,
+            "typeMovement": "B"
+          },
+          {
+            "description": "Payment",
+            "value": 24588.46,
+            "typeMovement": "D"
+          },
+          {
+            "description": "Payment",
+            "value": 24588.46,
+            "typeMovement": "D"
+          }
+        ]
+      },
+      {
+        "dataReference": "2021-06-09T00:00:00-03:00",
+        "detailsLaunch": [
+          {
+            "description": "Payment",
+            "value": 2559.38,
+            "typeMovement": "A"
+          },
+          {
+            "description": "Payment",
+            "value": 2559.38,
+            "typeMovement": "D"
+          },
+          {
+            "description": "Payment",
+            "value": 2559.38,
+            "typeMovement": "D"
+          },
+          {
+            "description": "Payment",
+            "value": 2559.38,
+            "typeMovement": "D"
+          }
+        ]
+      },
+      {
+        "dataReference": "2021-06-10T00:00:00-03:00",
+        "detailsLaunch": [
+          {
+            "description": "Payment",
+            "value": 2559.38,
+            "typeMovement": "D"
+          },
+          {
+            "description": "Payment",
+            "value": 2559.38,
+            "typeMovement": "D"
+          },
+          {
+            "description": "Payment",
+            "value": 2559.38,
+            "typeMovement": "D"
+          },
+          {
+            "description": "Payment",
+            "value": 2559.38,
+            "typeMovement": "D"
+          }
+        ]
+      }
+    ]
+  }

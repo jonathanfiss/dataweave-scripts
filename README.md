@@ -2,9 +2,18 @@
 
 ## Table of Contents
 
+**Commons Scripts**
+- [groupBy](#groupBy)
+- [groupBy Multi Values ValueOf](#groupBy-Multi-Values-ValueOf)
+- [Map MapObject FlatMap Flatten](#Map-MapObject-FlatMap-Flatten)
+- [number Must Have Zero After Dot](#number-Must-Have-Zero-After-Dot)
+- [update Specific Attribute In Array](#update-Specific-Attribute-In-Array)
+
 ## Commons Scripts
 
 ### groupBy
+
+<small>Tags: <kbd>groupBy</kbd></small>
 
 <a href="https://dataweave.mulesoft.com/learn/playground?projectMethod=GHRepo&repo=jonathanfiss%2Fdataweave-scripts&path=scripts%2FgroupBy"><img width="300" src="/images/dwplayground-button.png"><a>
 
@@ -112,7 +121,124 @@ output application/json
 
 </details>
 
+### groupBy Multi Values ValueOf
+
+<small>Tags: <kbd>groupBy</kbd> <kbd>valueOf</kbd></small>
+
+<a href="https://dataweave.mulesoft.com/learn/playground?projectMethod=GHRepo&repo=jonathanfiss%2Fdataweave-scripts&path=scripts%2FgroupByMultiValuesValueOf"><img width="300" src="/images/dwplayground-button.png"><a>
+
+<details>
+  <summary>Input</summary>
+
+  ```json
+[
+    {
+        "item": 621,
+        "orderid": "ON22",
+        "qty": 45.0,
+        "customer": "813",
+        "date": "1988-08-13"
+    },
+  {
+        "item": 63,
+        "orderid": "ON22",
+        "qty": 7,
+        "customer": "813",
+        "date": "2001-08-13"
+    },
+ {
+        "item": 54,
+        "orderid": "AD546",
+        "qty": 9,
+        "customer": "813",
+        "date": "2014-08-13"
+    },
+   {
+        "item": 611,
+        "orderid": "ON222723-JH",
+        "qty": 78.0,
+        "customer": "890",
+        "date": "1990-05-11"
+    }
+]
+  ```
+
+</details>
+
+<details>
+  <summary>Script</summary>
+
+  ```dataweave
+%dw 2.0
+output application/json
+
+// Concat customer and ordered as the key to group the items. Use a character that can't be part of any of the fields.
+var groupedOrders = payload groupBy ((item, index) -> item.customer ++ "|" ++ item.orderid)
+---
+valuesOf(groupedOrders) map ((items, index) -> 
+    {
+        // I'm getting the first element as all in the items collection should have the same customer and orderid
+        "customer": items[0].customer, 
+        "orderid": items[0].orderid, 
+        // The map here is just to remove the repeated fields
+        "data": items map ((item, index) -> item - "customer" - "orderid")
+    }
+)
+  ```
+
+</details>
+
+<details>
+  <summary>Output</summary>
+
+  ```json
+[
+  {
+    "customer": "813",
+    "orderid": "ON22",
+    "data": [
+      {
+        "item": 621,
+        "qty": 45,
+        "date": "1988-08-13"
+      },
+      {
+        "item": 63,
+        "qty": 7,
+        "date": "2001-08-13"
+      }
+    ]
+  },
+  {
+    "customer": "813",
+    "orderid": "AD546",
+    "data": [
+      {
+        "item": 54,
+        "qty": 9,
+        "date": "2014-08-13"
+      }
+    ]
+  },
+  {
+    "customer": "890",
+    "orderid": "ON222723-JH",
+    "data": [
+      {
+        "item": 611,
+        "qty": 78,
+        "date": "1990-05-11"
+      }
+    ]
+  }
+]
+  ```
+
+</details>
+
 ### Map MapObject FlatMap Flatten
+
+<small>Tags: <kbd>map</kbd> <kbd>mapObject</kbd> <kbd>flatMap</kbd> <kbd>flatten</kbd></small>
 
 <a href="https://dataweave.mulesoft.com/learn/playground?projectMethod=GHRepo&repo=jonathanfiss%2Fdataweave-scripts&path=scripts%2FmapMapObjectFlatMapFlatten"><img width="300" src="/images/dwplayground-button.png"><a>
 
@@ -433,6 +559,8 @@ flatten ((payload map (item, index) -> {
 
 ### number Must Have Zero After Dot
 
+<small>Tags: <kbd>java</kbd> <kbd>double</kbd></small>
+
 <a href="https://dataweave.mulesoft.com/learn/playground?projectMethod=GHRepo&repo=jonathanfiss%2Fdataweave-scripts&path=scripts%2FnumberMustHaveZeroAfterDot"><img width="300" src="/images/dwplayground-button.png"><a>
 
 https://docs.oracle.com/javase/8/docs/api/java/text/DecimalFormat.html
@@ -471,6 +599,8 @@ Double::parseDouble(payload.amount)
 </details>
 
 ### update Specific Attribute In Array
+
+<small>Tags: <kbd>update</kbd> <kbd>array</kbd></small>
 
 <a href="https://dataweave.mulesoft.com/learn/playground?projectMethod=GHRepo&repo=jonathanfiss%2Fdataweave-scripts&path=scripts%2FupdateSpecificAttributeInArray"><img width="300" src="/images/dwplayground-button.png"><a>
 
@@ -532,4 +662,3 @@ payload  update {
   ```
 
 </details>
-

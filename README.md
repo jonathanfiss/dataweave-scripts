@@ -561,9 +561,11 @@ flatten ((payload map (item, index) -> {
 
 <small>Tags: <kbd>java</kbd> <kbd>double</kbd></small>
 
+adds zero when number is integer and has no decimal part. [Doc java Double](https://docs.oracle.com/javase/8/docs/api/java/lang/Double.html)
+
 <a href="https://dataweave.mulesoft.com/learn/playground?projectMethod=GHRepo&repo=jonathanfiss%2Fdataweave-scripts&path=scripts%2FnumberMustHaveZeroAfterDot"><img width="300" src="/images/dwplayground-button.png"><a>
 
-https://docs.oracle.com/javase/8/docs/api/java/text/DecimalFormat.html
+
 
 <details>
   <summary>Input</summary>

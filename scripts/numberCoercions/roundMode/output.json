@@ -1,0 +1,18 @@
+{
+    "roundDownP": "0.45",
+    "roundDownN": "-0.45",
+    "roundUPP": "0.46",
+    "roundUPN": "-0.46",
+    "roundCeilingP": "0.46",
+    "roundCeilingN": "-0.45",
+    "roundFloorP": "0.45",
+    "roundFloorN": "-0.46",
+    "roundHalfDownP": "0.46",
+    "roundHalfDownN": "0.45",
+    "roundHalfEvenP": "0.46",
+    "roundHalfEvenN": "0.45",
+    "roundHalfUpPI": "0.46",
+    "roundHalfUpPD": "0.45",
+    "roundHalfUpND": "-0.45",
+    "roundHalfUpNI": "-0.46"
+  }

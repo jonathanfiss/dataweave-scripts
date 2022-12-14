@@ -9,6 +9,10 @@
 - [number Must Have Zero After Dot](#number-Must-Have-Zero-After-Dot)
 - [update Specific Attribute In Array](#update-Specific-Attribute-In-Array)
 
+**Coercions**
+- [number coercions](#number-coercions)
+- [date coercions](#date-coercions)
+
 ## Commons Scripts
 
 ### groupBy
@@ -605,6 +609,244 @@ Double::parseDouble(payload.amount)
 <small>Tags: <kbd>update</kbd> <kbd>array</kbd></small>
 
 <a href="https://dataweave.mulesoft.com/learn/playground?projectMethod=GHRepo&repo=jonathanfiss%2Fdataweave-scripts&path=scripts%2FupdateSpecificAttributeInArray"><img width="300" src="/images/dwplayground-button.png"><a>
+
+<details>
+  <summary>Input</summary>
+
+  ```json
+{
+    "pending": [
+        {
+            "amount": 100,
+            "fee": 500
+        },
+        {
+            "amount": 123,
+            "fee": 500
+        }
+    ],
+    "x": 1
+}
+  ```
+
+</details>
+
+<details>
+  <summary>Script</summary>
+
+  ```dataweave
+%dw 2.0
+output application/json
+---
+payload  update {
+        case pending at .pending ->  pending map ((item, index) -> item  update {
+                case amout at .amount -> amout/100
+                case fee at .fee -> fee/100
+        })
+}
+  ```
+
+</details>
+
+<details>
+  <summary>Output</summary>
+
+  ```json
+{
+  "pending": [
+    {
+      "amount": 1,
+      "fee": 5
+    },
+    {
+      "amount": 1.23,
+      "fee": 5
+    }
+  ],
+  "x": 1
+}
+  ```
+
+</details>
+
+### number coercions
+
+#### format
+
+<small>Tags: <kbd>number</kbd> <kbd>coercions</kbd> <kbd>format</kbd></small>
+
+<a href="https://dataweave.mulesoft.com/learn/playground?projectMethod=GHRepo&repo=jonathanfiss%2Fdataweave-scripts&path=scripts%2FnumberCoercions%2Fformat"><img width="300" src="/images/dwplayground-button.png"><a>
+
+<details>
+  <summary>Script</summary>
+
+  ```dataweave
+%dw 2.0
+output application/json
+---
+{
+        noRounding: 0.456,
+        roundUP: 0.456 as String {format: "0.00"},
+        roundUP: 0.456 as String {format: "0.0"},
+        double: 1234.56 as String,
+        double1: 1234.56 as Number as String {format: "#,###"},
+        double2: (1234.56 + 0.2) as Number as String {format: "#"},
+        double3: 1234.56 as Number as String {format: "#,###.00"},
+        double4: 1234.56 as Number as String {format: "#,###.##"},
+        double5: 1234.56 as Number as String {format: "#,###.###"},
+        // comment: java.lang.Integer only works with strings or int, not double (decimal),
+        double6: 1234.56 as Number {class: "java.lang.Integer"} as String {format: "#,###.000"},
+        int: 12345 as String,
+        int1: 12345 as Number as String {format: "#,###"},
+        int2: 12345 as Number as String {format: "#,###.##"},
+        int3: 12345 as Number as String {format: "#,###.00"},
+        int4: 12345 as Number as String {format: "#,###.000"},
+        valueX: 123123456.709 as String,
+        // round to integer
+        valueX1: 123123456.709 as String {format: "\$#,###"},
+        valueX1: 123123456.709 as String {format: "#,###.00#%"},
+        // round to 2 decimal places
+        valueX2: 123123456.709 as String {format: "#,##0.0#"},
+        // round to 3 decimal places
+        valueX3: 123123456.709 as String {format: "#,###.###"},
+        // round to 4 decimal places
+        valueX4: 123123456.709 as String {format: "#,###.0000"},
+        valueX5: 123123456709 as String {format: "#,##"},
+        // round to 3 decimal places, pad to 2 decimal places #,##0.00#
+        valueY1: 789789780 as String {format: "#,##0.00#"},
+        // round and pad to 3 decimal places #,###.000
+        valueY2: 789789780 as String {format: "#,###.000"},
+        // 0.7129 round and pad to 3 decimal places #,###.000
+        valueY3: 0.7129 as String {format: "#,###.000"},
+        // 0.7129 round and pad to 3 decimal places, format as 0.xxx #,##0.000
+        valueY4: 0.7129 as String {format: "#,##0.000"},
+}
+  ```
+
+</details>
+
+<details>
+  <summary>Output</summary>
+
+  ```json
+{
+    "noRounding": 0.456,
+    "roundUP": "0.46",
+    "roundUP": "0.5",
+    "double": "1234.56",
+    "double1": "1,235",
+    "double2": "1235",
+    "double3": "1,234.56",
+    "double4": "1,234.56",
+    "double5": "1,234.56",
+    "double6": "1,234.560",
+    "int": "12345",
+    "int1": "12,345",
+    "int2": "12,345",
+    "int3": "12,345.00",
+    "int4": "12,345.000",
+    "valueX": "123123456.709",
+    "valueX1": "$123,123,457",
+    "valueX1": "12,312,345,670.90%",
+    "valueX2": "123,123,456.71",
+    "valueX3": "123,123,456.709",
+    "valueX4": "123,123,456.7090",
+    "valueX5": "12,31,23,45,67,09",
+    "valueY1": "789,789,780.00",
+    "valueY2": "789,789,780.000",
+    "valueY3": ".713",
+    "valueY4": "0.713"
+  }
+  ```
+
+</details>
+
+#### roundMode
+
+<small>Tags: <kbd>number</kbd> <kbd>coercions</kbd> <kbd>roundMode</kbd></small>
+
+[number coercions functions tostring](https://docs.mulesoft.com/dataweave/2.4/dw-coercions-functions-tostring#tostring1)
+
+> .
+>| Name      | Description |
+>| ----------- | ----------- |
+>| number      | The Number value to format. |
+>| format      | The formatting to apply to the Number value. A format accepts `#` or `0` (but not both) as placeholders for decimal values, and only one decimal point is permitted. A null or empty String value has no effect on the Number value. Most other values are treated as literals, but you must escape special characters, such as a dollar sign (for example, `\$`). Inner quotations must be closed and differ from the surrounding quotations.        |
+>| roundMode   | Optional parameter for rounding decimal values when the formatting presents a rounding choice, such as a format of `0.#` for the decimal `0.15`. The default is HALF_UP, and a null value returns behaves like HALF_UP. Only one of the following values is permitted:  <ul><li>**UP**: Always rounds away from zero (for example, `0.01` to `"0.1"` and `-0.01` to `"-0.1"`). Increments the preceding digit to a non-zero fraction and never decreases the magnitude of the calculated value.</li><li>**DOWN**: Always rounds towards zero (for example, `0.19` to `"0.1"` and `-0.19` to `"-0.1"`). Never increments the digit before a discarded fraction (which truncates to the preceding digit) and never increases the magnitude of the calculated value.</li><li>**CEILING**: Rounds towards positive infinity and behaves like UP if the result is positive (for example, `0.35` to `"0.4"`). If the result is negative, this mode behaves like DOWN (for example, `-0.35` to `"-0.3"`). This mode never decreases the calculated value.</li><li>**FLOOR**: Rounds towards negative infinity and behaves like DOWN if the result is positive (for example, `0.35` to `"0.3"`). If the result is negative, this mode behaves like UP (for example, `-0.35` to `"-0.4"`). The mode never increases the calculated value.</li><li>**HALF_UP**: Default mode, which rounds towards the nearest "neighbor" unless both neighbors are equidistant, in which case, this mode rounds up. For example, `0.35` rounds to `"0.4"`, `0.34` rounds to `"0.3"`, and `0.36` rounds to `"0.4"`. Negative decimals numbers round similarly. For example, `-0.35` rounds to `"-0.4"`.</li><li>**HALF_DOWN**: Rounds towards the nearest numeric "neighbor" unless both neighbors are equidistant, in which case, this mode rounds down. For example, `0.35` rounds to `"0.3"`, `0.34` rounds to `"0.3"`, and `0.36` rounds to `"0.4"`. Negative decimals numbers round similarly. For example, `-0.35` rounds to `"-0.3"`.</li><li>**HALF_EVEN**: For decimals that end in a 5 (such as, `1.125` and `1.135`), the behavior depends on the number that precedes the 5. HALF_EVEN rounds up when the next-to-last digit before the 5 is an odd number but rounds down when the next-to-last digit is even. For example, `0.225` rounds to "0.22", 0.235 and 0.245 round to "0.24", and 0.255 rounds to "0.26". Negative decimals round similarly, for example, `-0.225` to `"-0.22"`. When the last digit is not 5, the setting behaves like HALF_UP. Rounding of monetary values sometimes follows the HALF_EVEN pattern.</li></ul>      |
+> .
+<p style="text-align:right"><a href="https://docs.mulesoft.com/dataweave/2.4/dw-coercions-functions-tostring#parameters">Reference Mulesoft<a></p>
+
+
+<a href="https://dataweave.mulesoft.com/learn/playground?projectMethod=GHRepo&repo=jonathanfiss%2Fdataweave-scripts&path=scripts%2FnumberCoercions%2FroundMode"><img width="300" src="/images/dwplayground-button.png"><a>
+
+
+<details>
+  <summary>Script</summary>
+
+  ```dataweave
+%dw 2.0
+output application/json
+---
+{
+        // round DOWN
+        roundDownP: 0.456 as String {format: "0.00", roundMode:"DOWN"},
+        roundDownN: -0.456 as String {format: "0.00", roundMode:"DOWN"},
+        // round UP
+        roundUPP: 0.454 as String {format: "0.00", roundMode:"UP"},
+        roundUPN: -0.454 as String {format: "0.00", roundMode:"UP"},
+        // round CEILING
+        roundCeilingP: 0.456 as String {format: "0.00", roundMode:"CEILING"},
+        roundCeilingN: -0.456 as String {format: "0.00", roundMode:"CEILING"},
+        // round FLOOR
+        roundFloorP: 0.456 as String {format: "0.00", roundMode:"FLOOR"},
+        roundFloorN: -0.456 as String {format: "0.00", roundMode:"FLOOR"},
+        // round HALF_DOWN
+        roundHalfDownP: 0.456 as String {format: "0.00", roundMode:"HALF_DOWN"},
+        roundHalfDownN: 0.455 as String {format: "0.00", roundMode:"HALF_DOWN"},
+        // round HALF_EVEN
+        roundHalfEvenP: 0.455 as String {format: "0.00", roundMode:"HALF_EVEN"},
+        roundHalfEvenN: 0.454 as String {format: "0.00", roundMode:"HALF_EVEN"},
+        // round HALF_UP
+        roundHalfUpPI: 0.455 as String {format: "0.00", roundMode:"HALF_UP"},
+        roundHalfUpPD: 0.454 as String {format: "0.00", roundMode:"HALF_UP"},
+        roundHalfUpND: -0.454 as String {format: "0.00", roundMode:"HALF_UP"},
+        roundHalfUpNI: -0.455 as String {format: "0.00", roundMode:"HALF_UP"},
+}
+  ```
+
+</details>
+
+<details>
+  <summary>Output</summary>
+
+  ```json
+{
+    "roundDownP": "0.45",
+    "roundDownN": "-0.45",
+    "roundUPP": "0.46",
+    "roundUPN": "-0.46",
+    "roundCeilingP": "0.46",
+    "roundCeilingN": "-0.45",
+    "roundFloorP": "0.45",
+    "roundFloorN": "-0.46",
+    "roundHalfDownP": "0.46",
+    "roundHalfDownN": "0.45",
+    "roundHalfEvenP": "0.46",
+    "roundHalfEvenN": "0.45",
+    "roundHalfUpPI": "0.46",
+    "roundHalfUpPD": "0.45",
+    "roundHalfUpND": "-0.45",
+    "roundHalfUpNI": "-0.46"
+  }
+  ```
+
+</details>
+
+### date coercions
+
+<small>Tags: <kbd>date</kbd> <kbd>coercions</kbd></small>
+
+<a href="https://dataweave.mulesoft.com/learn/playground?projectMethod=GHRepo&repo=jonathanfiss%2Fdataweave-scripts&path=scripts%2FdateCoercions"><img width="300" src="/images/dwplayground-button.png"><a>
 
 <details>
   <summary>Input</summary>

@@ -3,11 +3,20 @@
 ## Table of Contents
 
 **Commons Scripts**
-- [groupBy](#groupBy)
-- [groupBy Multi Values ValueOf](#groupBy-Multi-Values-ValueOf)
-- [Map MapObject FlatMap Flatten](#Map-MapObject-FlatMap-Flatten)
-- [number Must Have Zero After Dot](#number-Must-Have-Zero-After-Dot)
-- [update Specific Attribute In Array](#update-Specific-Attribute-In-Array)
+- [DataWeave Scripts](#dataweave-scripts)
+  - [Table of Contents](#table-of-contents)
+  - [Commons Scripts](#commons-scripts)
+    - [groupBy](#groupby)
+    - [groupBy Multi Values ValueOf](#groupby-multi-values-valueof)
+    - [Map MapObject FlatMap Flatten](#map-mapobject-flatmap-flatten)
+    - [number Must Have Zero After Dot](#number-must-have-zero-after-dot)
+    - [update Specific Attribute In Array](#update-specific-attribute-in-array)
+    - [first and last day of the month](#first-and-last-day-of-the-month)
+  - [number coercions](#number-coercions)
+    - [format](#format)
+    - [roundMode](#roundmode)
+    - [date coercions](#date-coercions)
+    - [size Of Payload](#size-of-payload)
 
 **Coercions**
 - [number coercions](#number-coercions)
@@ -669,9 +678,59 @@ payload  update {
 
 </details>
 
-### number coercions
+### first and last day of the month
 
-#### format
+<small>Tags: <kbd>date</kbd></small>
+
+<a href="https://dataweave.mulesoft.com/learn/playground?projectMethod=GHRepo&repo=jonathanfiss%2Fdataweave-scripts&path=scripts%2FfirstAndLastDayOfMonth"><img width="300" src="/images/dwplayground-button.png"><a>
+
+<details>
+  <summary>Input</summary>
+
+  ```json
+{
+    "date": "2023-02-15"
+}
+  ```
+
+</details>
+
+<details>
+  <summary>Script</summary>
+
+  ```dataweave
+%dw 2.0
+
+fun firstDateOfMonth(value: Date): Date =
+  (value as String {format: "yyyy-MM"} ++ "-01") as Date
+
+fun lastDateOfMonth(value: Date): Date =
+  (((value as String {format: "yyyy-MM"} ++ "-01") as Date {format: "yyyy-MM-dd"}) + |P1M| - |P1D|) as Date
+output application/json  
+---
+{
+  "firstDateOfCurrentMonth": firstDateOfMonth(payload.date),
+  "LastDateOfCurrentMonth": lastDateOfMonth(payload.date)
+}
+  ```
+
+</details>
+
+<details>
+  <summary>Output</summary>
+
+  ```json
+{
+  "firstDateOfMonth": "2023-02-01",
+  "LastDateOfMonth": "2023-02-28"
+}
+  ```
+
+</details>
+
+## number coercions
+
+### format
 
 <small>Tags: <kbd>number</kbd> <kbd>coercions</kbd> <kbd>format</kbd></small>
 
@@ -761,7 +820,7 @@ output application/json
 
 </details>
 
-#### roundMode
+### roundMode
 
 <small>Tags: <kbd>number</kbd> <kbd>coercions</kbd> <kbd>roundMode</kbd></small>
 

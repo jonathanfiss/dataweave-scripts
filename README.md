@@ -12,15 +12,12 @@
     - [number Must Have Zero After Dot](#number-must-have-zero-after-dot)
     - [update Specific Attribute In Array](#update-specific-attribute-in-array)
     - [first and last day of the month](#first-and-last-day-of-the-month)
-  - [number coercions](#number-coercions)
-    - [format](#format)
+    - [size Of Payload](#size-of-payload)
+  - [Coercions](#coercions)
+    - [number coercions](#number-coercions)
+      - [format](#format)
     - [roundMode](#roundmode)
     - [date coercions](#date-coercions)
-    - [size Of Payload](#size-of-payload)
-
-**Coercions**
-- [number coercions](#number-coercions)
-- [date coercions](#date-coercions)
 
 ## Commons Scripts
 
@@ -728,9 +725,89 @@ output application/json
 
 </details>
 
-## number coercions
+### size Of Payload
 
-### format
+<small>Tags: <kbd>size</kbd></small>
+
+<a href="https://dataweave.mulesoft.com/learn/playground?projectMethod=GHRepo&repo=jonathanfiss%2Fdataweave-scripts&path=scripts%2FsizeOfPayload"><img width="300" src="/images/dwplayground-button.png"><a>
+
+
+
+<details>
+  <summary>Input</summary>
+
+  ```json
+{
+  "squadName": "Super hero squad",
+  "homeTown": "Metro City",
+  "formed": 2016,
+  "secretBase": "Super tower",
+  "active": true,
+  "members": [
+    {
+      "name": "Molecule Man",
+      "age": 29,
+      "secretIdentity": "Dan Jukes",
+      "powers": ["Radiation resistance", "Turning tiny", "Radiation blast"]
+    },
+    {
+      "name": "Madame Uppercut",
+      "age": 39,
+      "secretIdentity": "Jane Wilson",
+      "powers": [
+        "Million tonne punch",
+        "Damage resistance",
+        "Superhuman reflexes"
+      ]
+    },
+    {
+      "name": "Eternal Flame",
+      "age": 1000000,
+      "secretIdentity": "Unknown",
+      "powers": [
+        "Immortality",
+        "Heat Immunity",
+        "Inferno",
+        "Teleportation",
+        "Interdimensional travel"
+      ]
+    }
+  ]
+}
+
+  ```
+
+</details>
+
+<details>
+  <summary>Script</summary>
+
+  ```dataweave
+%dw 2.0
+output application/json
+var content = write(payload, 'application/json', {indent: true})
+var size = sizeOf(content) / 1024
+---
+(size as String {format: '#.00'} ++ ' KB')
+  ```
+
+</details>
+
+<details>
+  <summary>Output</summary>
+
+  ```json
+".81 KB"
+  ```
+
+</details>
+
+
+## Coercions
+
+### number coercions
+
+#### format
 
 <small>Tags: <kbd>number</kbd> <kbd>coercions</kbd> <kbd>format</kbd></small>
 
@@ -966,79 +1043,3 @@ payload  update {
 
 </details>
 
-### size Of Payload
-
-<small>Tags: <kbd>size</kbd></small>
-
-<a href="https://dataweave.mulesoft.com/learn/playground?projectMethod=GHRepo&repo=jonathanfiss%2Fdataweave-scripts&path=scripts%2FsizeOfPayload"><img width="300" src="/images/dwplayground-button.png"><a>
-
-
-
-<details>
-  <summary>Input</summary>
-
-  ```json
-{
-  "squadName": "Super hero squad",
-  "homeTown": "Metro City",
-  "formed": 2016,
-  "secretBase": "Super tower",
-  "active": true,
-  "members": [
-    {
-      "name": "Molecule Man",
-      "age": 29,
-      "secretIdentity": "Dan Jukes",
-      "powers": ["Radiation resistance", "Turning tiny", "Radiation blast"]
-    },
-    {
-      "name": "Madame Uppercut",
-      "age": 39,
-      "secretIdentity": "Jane Wilson",
-      "powers": [
-        "Million tonne punch",
-        "Damage resistance",
-        "Superhuman reflexes"
-      ]
-    },
-    {
-      "name": "Eternal Flame",
-      "age": 1000000,
-      "secretIdentity": "Unknown",
-      "powers": [
-        "Immortality",
-        "Heat Immunity",
-        "Inferno",
-        "Teleportation",
-        "Interdimensional travel"
-      ]
-    }
-  ]
-}
-
-  ```
-
-</details>
-
-<details>
-  <summary>Script</summary>
-
-  ```dataweave
-%dw 2.0
-output application/json
-var content = write(payload, 'application/json', {indent: true})
-var size = sizeOf(content) / 1024
----
-(size as String {format: '#.00'} ++ ' KB')
-  ```
-
-</details>
-
-<details>
-  <summary>Output</summary>
-
-  ```json
-".81 KB"
-  ```
-
-</details>

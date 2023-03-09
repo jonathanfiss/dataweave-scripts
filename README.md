@@ -807,7 +807,7 @@ var size = sizeOf(content) / 1024
 
 <small>Tags: <kbd>size</kbd><kbd>format</kbd></small>
 
-<a href="https://dataweave.mulesoft.com/learn/playground?projectMethod=GHRepo&repo=jonathanfiss%2Fdataweave-scripts&path=scripts%2formatUnitsMeasureComputation"><img width="300" src="/images/dwplayground-button.png"><a>
+<a href="https://dataweave.mulesoft.com/learn/playground?projectMethod=GHRepo&repo=jonathanfiss%2Fdataweave-scripts&path=scripts%2FformatUnitsMeasureComputation"><img width="300" src="/images/dwplayground-button.png"><a>
 
 
 

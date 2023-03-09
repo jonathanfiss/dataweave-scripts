@@ -13,6 +13,7 @@
     - [update Specific Attribute In Array](#update-specific-attribute-in-array)
     - [first and last day of the month](#first-and-last-day-of-the-month)
     - [size Of Payload](#size-of-payload)
+    - [Format Units of Measure Computation](#format-units-of-measure-computation)
   - [Coercions](#coercions)
     - [number coercions](#number-coercions)
       - [format](#format)
@@ -798,6 +799,142 @@ var size = sizeOf(content) / 1024
 
   ```json
 ".81 KB"
+  ```
+
+</details>
+
+### Format Units of Measure Computation
+
+<small>Tags: <kbd>size</kbd><kbd>format</kbd></small>
+
+<a href="https://dataweave.mulesoft.com/learn/playground?projectMethod=GHRepo&repo=jonathanfiss%2Fdataweave-scripts&path=scripts%2formatUnitsMeasureComputation"><img width="300" src="/images/dwplayground-button.png"><a>
+
+
+
+<details>
+  <summary>Input</summary>
+
+  ```json
+{
+    "BtoKB": 1024,
+    "BtoMB": 2097152,
+    "BtoGB": 1196855296,
+    "BtoZB": 13486197334567809440000,
+    "KBtoB": 12,
+    "KBtoMB": 32454,
+    "KBtoGB": 2243424,
+    "MBtoB": 1394567,
+    "MBtoKB": 64366790,
+    "MBtoGB": 12345,
+    "GBtoB": 1,
+    "GBtoKB": 1,
+    "GBtoMB": 1,
+    "GBtoYB": 1125899906842624,
+    "TBtoGB": 1,
+    "PBtoGB": 1,
+    "EBtoGB": 1,
+    "ZBtoGB": 1,
+    "YBtoGB": 0.0000000000000023
+}
+  ```
+
+</details>
+
+<details>
+  <summary>Script</summary>
+
+  ```dataweave
+%dw 2.0
+type typesUnitMeasure = 'B' | 'KB' | 'MB' | 'GB' | 'TB' | 'PB' | 'EB' | 'ZB' | 'YB'
+
+fun formatUnitsMeasureComputation(value: Number, inputUnitMeasure: typesUnitMeasure, outputUnitMeasure: typesUnitMeasure, displayUnitMeasure = false) =
+  if (value > 0)
+    do {
+      var valueInput = inputUnitMeasure match {
+        case "B" -> value
+        case "KB" -> value * 1024
+        case "MB" -> value * (1024 pow 2)
+        case "GB" -> value * (1024 pow 3)
+        case "TB" -> value * (1024 pow 4)
+        case "PB" -> value * (1024 pow 5)
+        case "EB" -> value * (1024 pow 6)
+        case "ZB" -> value * (1024 pow 7)
+        case "YB" -> value * (1024 pow 8)
+      }
+      var valueOutput = outputUnitMeasure match {
+        case "B" -> valueInput
+        case "KB" -> valueInput / 1024
+        case "MB" -> valueInput / (1024 pow 2)
+        case "GB" -> valueInput / (1024 pow 3)
+        case "TB" -> valueInput / (1024 pow 4)
+        case "PB" -> valueInput / (1024 pow 5)
+        case "EB" -> valueInput / (1024 pow 6)
+        case "ZB" -> valueInput / (1024 pow 7)
+        case "YB" -> valueInput / (1024 pow 8)
+      }
+      var round = valueOutput as String {format: '0.00'}
+      ---
+      if (displayUnitMeasure)
+        round ++ " " ++ outputUnitMeasure as String
+      else
+        round as Number
+    }
+  else
+    0
+output application/json  
+---
+// formatUnitsMeasureComputation(13486197309440000, "B", "PB")
+{
+    "BtoKB": formatUnitsMeasureComputation(payload.BtoKB, "B", "KB"),
+    "BtoMB": formatUnitsMeasureComputation(payload.BtoMB, "B", "MB", true),
+    "BtoGB": formatUnitsMeasureComputation(payload.BtoGB, "B", "GB"),
+    "BtoZB": formatUnitsMeasureComputation(payload.BtoZB, "B", "ZB"),
+    "KBtoB": formatUnitsMeasureComputation(payload.KBtoB, "KB", "B"),
+    "KBtoMB": formatUnitsMeasureComputation(payload.KBtoMB, "KB", "MB"),
+    "KBtoGB": formatUnitsMeasureComputation(payload.KBtoGB,"KB", "GB", true),
+    "MBtoB": formatUnitsMeasureComputation(payload.MBtoB,"MB", "B"),
+    "MBtoKB": formatUnitsMeasureComputation(payload.MBtoKB,"MB", "KB"),
+    "MBtoGB": formatUnitsMeasureComputation(payload.MBtoGB,"MB", "GB"),
+    "GBtoB": formatUnitsMeasureComputation(payload.GBtoB,"GB", "B"),
+    "GBtoKB": formatUnitsMeasureComputation(payload.GBtoKB,"GB", "KB", true),
+    "GBtoMB": formatUnitsMeasureComputation(payload.GBtoMB,"GB", "MB"),
+    "GBtoYB": formatUnitsMeasureComputation(payload.GBtoYB,"GB", "YB"),
+    "TBtoGB": formatUnitsMeasureComputation(payload.TBtoGB,"TB", "GB"),
+    "PBtoGB": formatUnitsMeasureComputation(payload.PBtoGB,"PB", "GB", true),
+    "EBtoGB": formatUnitsMeasureComputation(payload.EBtoGB,"EB", "GB"),
+    "ZBtoGB": formatUnitsMeasureComputation(payload.ZBtoGB,"ZB", "GB"),
+    "YBtoGB": formatUnitsMeasureComputation(payload.YBtoGB,"YB", "GB")
+}
+
+  ```
+
+</details>
+
+<details>
+  <summary>Output</summary>
+
+  ```json
+{
+  "BtoKB": 1,
+  "BtoMB": "2.00 MB",
+  "BtoGB": 1.11,
+  "BtoZB": 11.42,
+  "KBtoB": 12288,
+  "KBtoMB": 31.69,
+  "KBtoGB": "2.14 GB",
+  "MBtoB": 1462309486592,
+  "MBtoKB": 65911592960,
+  "MBtoGB": 12.06,
+  "GBtoB": 1073741824,
+  "GBtoKB": "1048576.00 KB",
+  "GBtoMB": 1024,
+  "GBtoYB": 1,
+  "TBtoGB": 1024,
+  "PBtoGB": "1048576.00 GB",
+  "EBtoGB": 1073741824,
+  "ZBtoGB": 1099511627776,
+  "YBtoGB": 2.59
+}
   ```
 
 </details>

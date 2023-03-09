@@ -1,0 +1,21 @@
+{
+    "BtoKB": 1,
+    "BtoMB": "2.00 MB",
+    "BtoGB": 1.11,
+    "BtoZB": 11.42,
+    "KBtoB": 12288,
+    "KBtoMB": 31.69,
+    "KBtoGB": "2.14 GB",
+    "MBtoB": 1462309486592,
+    "MBtoKB": 65911592960,
+    "MBtoGB": 12.06,
+    "GBtoB": 1073741824,
+    "GBtoKB": "1048576.00 KB",
+    "GBtoMB": 1024,
+    "GBtoYB": 1,
+    "TBtoGB": 1024,
+    "PBtoGB": "1048576.00 GB",
+    "EBtoGB": 1073741824,
+    "ZBtoGB": 1099511627776,
+    "YBtoGB": 2.59
+  }

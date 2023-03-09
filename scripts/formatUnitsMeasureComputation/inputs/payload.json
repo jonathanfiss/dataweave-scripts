@@ -1,0 +1,21 @@
+{
+  "BtoKB": 1024,
+  "BtoMB": 2097152,
+  "BtoGB": 1196855296,
+  "BtoZB": 13486197334567809440000,
+  "KBtoB": 12,
+  "KBtoMB": 32454,
+  "KBtoGB": 2243424,
+  "MBtoB": 1394567,
+  "MBtoKB": 64366790,
+  "MBtoGB": 12345,
+  "GBtoB": 1,
+  "GBtoKB": 1,
+  "GBtoMB": 1,
+  "GBtoYB": 1125899906842624,
+  "TBtoGB": 1,
+  "PBtoGB": 1,
+  "EBtoGB": 1,
+  "ZBtoGB": 1,
+  "YBtoGB": 0.0000000000000023
+}

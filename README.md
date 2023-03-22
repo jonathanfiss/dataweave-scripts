@@ -14,6 +14,7 @@
     - [first and last day of the month](#first-and-last-day-of-the-month)
     - [size Of Payload](#size-of-payload)
     - [Format Units of Measure Computation](#format-units-of-measure-computation)
+    - [Calculate time to current day](#calculate-time-to-current-day)
   - [Coercions](#coercions)
     - [number coercions](#number-coercions)
       - [format](#format)
@@ -805,7 +806,7 @@ var size = sizeOf(content) / 1024
 
 ### Format Units of Measure Computation
 
-<small>Tags: <kbd>size</kbd><kbd>format</kbd></small>
+<small>Tags: <kbd>size</kbd> <kbd>format</kbd></small>
 
 <a href="https://dataweave.mulesoft.com/learn/playground?projectMethod=GHRepo&repo=jonathanfiss%2Fdataweave-scripts&path=scripts%2FformatUnitsMeasureComputation"><img width="300" src="/images/dwplayground-button.png"><a>
 
@@ -934,6 +935,58 @@ output application/json
   "EBtoGB": 1073741824,
   "ZBtoGB": 1099511627776,
   "YBtoGB": 2.59
+}
+  ```
+
+</details>
+
+
+### Calculate time to current day
+
+<small>Tags: <kbd>calculate</kbd> <kbd>date</kbd> <kbd>age</kbd></small>
+
+<a href="https://dataweave.mulesoft.com/learn/playground?projectMethod=GHRepo&repo=jonathanfiss%2Fdataweave-scripts&path=scripts%2FcalculateTimeCurrentDay"><img width="300" src="/images/dwplayground-button.png"><a>
+
+
+
+<details>
+  <summary>Input</summary>
+
+  ```json
+{
+    "dateToCalculate": "1995-10-11"
+}
+  ```
+
+</details>
+
+<details>
+  <summary>Script</summary>
+
+  ```dataweave
+%dw 2.0
+output application/json
+import between from dw::core::Periods
+
+var age = between(now() as Date, payload.dateToCalculate as Date)
+---
+{   
+    "years" : age.years,
+    "months": age.months,
+    "days": age.days   
+}
+  ```
+
+</details>
+
+<details>
+  <summary>Output</summary>
+
+  ```json
+{
+  "years": 27,
+  "months": 5,
+  "days": 11
 }
   ```
 

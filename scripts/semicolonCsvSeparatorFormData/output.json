@@ -1,1 +1,27 @@
-".81 KB"
+------=_Part_1951_66438487.1719598253303
+Content-Type: text/csv;separator=";"
+Content-Disposition: form-data; name="file"; filename="userInfo.csv"
+
+ID;Name;Age;City;Profession
+1;John Silva;28;São Paulo;Engineer
+2;Mary Oliveira;34;Rio de Janeiro;Doctor
+3;Charles Pereira;45;Belo Horizonte;Lawyer
+4;Anna Souza;22;Salvador;Student
+5;Peter Lima;39;Porto Alegre;Teacher
+6;Marian Santos;27;Curitiba;Designer
+7;Luke Almeida;31;Brasília;Systems Analyst
+8;Fernanda Rocha;25;Recife;Architect
+9;Richard Costa;50;Fortaleza;Businessman
+10;Patricia Ribeiro;29;Manaus;Psychologist
+11;Bruno Martins;42;Belém;Accountant
+12;Juliana Mendes;36;Florianópolis;Marketing Manager
+13;Gustavo Araújo;24;Natal;Developer
+14;Renata Ferreira;33;João Pessoa;Consultant
+15;Philip Barros;37;Campo Grande;Administrator
+16;Isabela Lima;26;Aracaju;Nutritionist
+17;Thiago Gonçalves;41;Maceió;Veterinarian
+18;Laura Almeida;30;São Luís;Teacher
+19;Andrew Neves;35;Teresina;Civil Engineer
+20;Gabrielle Costa;28;Vitória;Journalist
+
+------=_Part_1951_66438487.1719598253303--

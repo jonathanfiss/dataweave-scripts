@@ -1,6 +1,15 @@
 %dw 2.0
-output application/json
-var content = write(payload, 'application/json', {indent: true})
-var size = sizeOf(content) / 1024
+input payload multipart
+output multipart
 ---
-(size as String {format: '#.00'} ++ ' KB')
+{
+  parts : {
+    file: {
+      headers : {
+        "Content-Type": "text/csv",
+        "Content-Disposition": payload.parts.file.headers."Content-Disposition"
+      },
+      content : payload.parts.file.content
+    }
+  }
+}

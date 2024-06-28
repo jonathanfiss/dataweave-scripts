@@ -20,6 +20,9 @@
       - [format](#format)
     - [roundMode](#roundmode)
     - [date coercions](#date-coercions)
+  - [Form-Data](#form-data)
+    - [Semicolon CSV Separator in Form-Data](#semicolon-csv-separator-in-form-data)
+    - [Remove Content-Type Separator from form-data](#remove-content-type-separator-from-form-data)
 
 ## Commons Scripts
 
@@ -1233,3 +1236,191 @@ payload  update {
 
 </details>
 
+## Form-Data
+
+### Semicolon CSV Separator in Form-Data
+
+<small>Tags: <kbd>form-data</kbd> <kbd>csv</kbd> <kbd>separator</kbd></small>
+
+<a href="https://dataweave.mulesoft.com/learn/playground?projectMethod=GHRepo&repo=jonathanfiss%2Fdataweave-scripts&path=scripts%2FsemicolonCsvSeparatorFormData"><img width="300" src="/images/dwplayground-button.png"><a>
+
+<details>
+  <summary>Input</summary>
+
+  ```csv
+ID;Name;Age;City;Profession
+1;John Silva;28;São Paulo;Engineer
+2;Mary Oliveira;34;Rio de Janeiro;Doctor
+3;Charles Pereira;45;Belo Horizonte;Lawyer
+4;Anna Souza;22;Salvador;Student
+5;Peter Lima;39;Porto Alegre;Teacher
+6;Marian Santos;27;Curitiba;Designer
+7;Luke Almeida;31;Brasília;Systems Analyst
+8;Fernanda Rocha;25;Recife;Architect
+9;Richard Costa;50;Fortaleza;Businessman
+10;Patricia Ribeiro;29;Manaus;Psychologist
+11;Bruno Martins;42;Belém;Accountant
+12;Juliana Mendes;36;Florianópolis;Marketing Manager
+13;Gustavo Araújo;24;Natal;Developer
+14;Renata Ferreira;33;João Pessoa;Consultant
+15;Philip Barros;37;Campo Grande;Administrator
+16;Isabela Lima;26;Aracaju;Nutritionist
+17;Thiago Gonçalves;41;Maceió;Veterinarian
+18;Laura Almeida;30;São Luís;Teacher
+19;Andrew Neves;35;Teresina;Civil Engineer
+20;Gabrielle Costa;28;Vitória;Journalist
+  ```
+
+</details>
+
+<details>
+  <summary>Script</summary>
+
+  ```dataweave
+%dw 2.0
+import dw::module::Multipart
+input payload csv separator=';'
+output multipart/form-data
+---
+Multipart::form([
+  Multipart::field("file", payload, 'text/csv;separator=";"', "userInfo.csv")
+])
+
+  ```
+
+</details>
+
+<details>
+  <summary>Output</summary>
+
+  ```json
+------=_Part_1951_66438487.1719598253303
+Content-Type: text/csv;separator=";"
+Content-Disposition: form-data; name="file"; filename="userInfo.csv"
+
+ID;Name;Age;City;Profession
+1;John Silva;28;São Paulo;Engineer
+2;Mary Oliveira;34;Rio de Janeiro;Doctor
+3;Charles Pereira;45;Belo Horizonte;Lawyer
+4;Anna Souza;22;Salvador;Student
+5;Peter Lima;39;Porto Alegre;Teacher
+6;Marian Santos;27;Curitiba;Designer
+7;Luke Almeida;31;Brasília;Systems Analyst
+8;Fernanda Rocha;25;Recife;Architect
+9;Richard Costa;50;Fortaleza;Businessman
+10;Patricia Ribeiro;29;Manaus;Psychologist
+11;Bruno Martins;42;Belém;Accountant
+12;Juliana Mendes;36;Florianópolis;Marketing Manager
+13;Gustavo Araújo;24;Natal;Developer
+14;Renata Ferreira;33;João Pessoa;Consultant
+15;Philip Barros;37;Campo Grande;Administrator
+16;Isabela Lima;26;Aracaju;Nutritionist
+17;Thiago Gonçalves;41;Maceió;Veterinarian
+18;Laura Almeida;30;São Luís;Teacher
+19;Andrew Neves;35;Teresina;Civil Engineer
+20;Gabrielle Costa;28;Vitória;Journalist
+
+------=_Part_1951_66438487.1719598253303--
+  ```
+
+</details>
+
+### Remove Content-Type Separator from form-data
+
+<small>Tags: <kbd>form-data</kbd> <kbd>csv</kbd> <kbd>separator</kbd></small>
+
+<a href="https://dataweave.mulesoft.com/learn/playground?projectMethod=GHRepo&repo=jonathanfiss%2Fdataweave-scripts&path=scripts%2FremoveContentTypeSeparatorFormData"><img width="300" src="/images/dwplayground-button.png"><a>
+
+<details>
+  <summary>Input</summary>
+
+  ```text
+------=_Part_1951_66438487.1719598253303
+Content-Type: text/csv;separator=";"
+Content-Disposition: form-data; name="file"; filename="userInfo.csv"
+
+ID;Name;Age;City;Profession
+1;John Silva;28;São Paulo;Engineer
+2;Mary Oliveira;34;Rio de Janeiro;Doctor
+3;Charles Pereira;45;Belo Horizonte;Lawyer
+4;Anna Souza;22;Salvador;Student
+5;Peter Lima;39;Porto Alegre;Teacher
+6;Marian Santos;27;Curitiba;Designer
+7;Luke Almeida;31;Brasília;Systems Analyst
+8;Fernanda Rocha;25;Recife;Architect
+9;Richard Costa;50;Fortaleza;Businessman
+10;Patricia Ribeiro;29;Manaus;Psychologist
+11;Bruno Martins;42;Belém;Accountant
+12;Juliana Mendes;36;Florianópolis;Marketing Manager
+13;Gustavo Araújo;24;Natal;Developer
+14;Renata Ferreira;33;João Pessoa;Consultant
+15;Philip Barros;37;Campo Grande;Administrator
+16;Isabela Lima;26;Aracaju;Nutritionist
+17;Thiago Gonçalves;41;Maceió;Veterinarian
+18;Laura Almeida;30;São Luís;Teacher
+19;Andrew Neves;35;Teresina;Civil Engineer
+20;Gabrielle Costa;28;Vitória;Journalist
+
+------=_Part_1951_66438487.1719598253303--
+  ```
+
+</details>
+
+<details>
+  <summary>Script</summary>
+
+  ```dataweave
+%dw 2.0
+input payload multipart
+output multipart
+---
+{
+  parts : {
+    file: {
+      headers : {
+        "Content-Type": "text/csv",
+        "Content-Disposition": payload.parts.file.headers."Content-Disposition"
+      },
+      content : payload.parts.file.content
+    }
+  }
+}
+  ```
+
+</details>
+
+<details>
+  <summary>Output</summary>
+
+  ```text
+------=_Part_7394_2117309175.1719599181681
+Content-Type: text/csv
+Content-Disposition: form-data; name="file"; filename="userInfo.csv"
+
+ID;Name;Age;City;Profession
+1;John Silva;28;São Paulo;Engineer
+2;Mary Oliveira;34;Rio de Janeiro;Doctor
+3;Charles Pereira;45;Belo Horizonte;Lawyer
+4;Anna Souza;22;Salvador;Student
+5;Peter Lima;39;Porto Alegre;Teacher
+6;Marian Santos;27;Curitiba;Designer
+7;Luke Almeida;31;Brasília;Systems Analyst
+8;Fernanda Rocha;25;Recife;Architect
+9;Richard Costa;50;Fortaleza;Businessman
+10;Patricia Ribeiro;29;Manaus;Psychologist
+11;Bruno Martins;42;Belém;Accountant
+12;Juliana Mendes;36;Florianópolis;Marketing Manager
+13;Gustavo Araújo;24;Natal;Developer
+14;Renata Ferreira;33;João Pessoa;Consultant
+15;Philip Barros;37;Campo Grande;Administrator
+16;Isabela Lima;26;Aracaju;Nutritionist
+17;Thiago Gonçalves;41;Maceió;Veterinarian
+18;Laura Almeida;30;São Luís;Teacher
+19;Andrew Neves;35;Teresina;Civil Engineer
+20;Gabrielle Costa;28;Vitória;Journalist
+
+------=_Part_7394_2117309175.1719599181681--
+
+  ```
+
+</details>

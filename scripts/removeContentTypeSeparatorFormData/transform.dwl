@@ -2,14 +2,12 @@
 input payload multipart
 output multipart
 ---
-{
-  parts : {
-    file: {
-      headers : {
-        "Content-Type": "text/csv",
-        "Content-Disposition": payload.parts.file.headers."Content-Disposition"
-      },
-      content : payload.parts.file.content
+payload update {
+  case .parts -> $ update {
+    case .file -> $ update {
+      case .headers -> $ update {
+        case .'Content-Type' -> "text/csv"
+      }
     }
   }
 }
